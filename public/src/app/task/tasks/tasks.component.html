@@ -1,0 +1,45 @@
+<h1>Hello!</h1>
+<div class="container">
+  <button (click)="getAllDaTasks()">Get All Tasks</button>
+  <ul>
+    <li (click)="getOneSingleTask(task)" class="hvr" *ngFor="let task of tasks">
+      <p>{{ task.title }} - {{task.description}}</p>
+      <p> {{ task.completed ? 'Complete!' : 'Not Ccompleted' }} </p>
+    </li>
+  </ul>
+  <form>
+    <p>
+      <label>Title</label>
+      <input type="text" name="newTask.title" [(ngModel)]="newTask.title">
+    </p>
+    <p>
+      <label>Description</label>
+      <input type="text" name="newTask.description" [(ngModel)]="newTask.description">
+    </p>
+    <button (click)="createNewTask()">Submit</button>
+  </form>
+
+  <div *ngIf="selectedTask">
+    <p> {{ selectedTask._id }} </p>
+    <p> {{ selectedTask.title }} </p>
+    <p> {{ selectedTask.description }} </p>
+    <p> {{ selectedTask.createdAt | date }} </p>
+    <p> {{ selectedTask.updatedAt | date }} </p>
+    <button (click)="isEditing = !isEditing">Edit</button>
+    <form *ngIf="isEditing">
+      <p>
+        <label>Title</label>
+        <input type="text" name="selectedTask.title" [(ngModel)]="selectedTask.title">
+      </p>
+      <p>
+        <label>Description</label>
+        <input type="text" name="selectedTask.description" [(ngModel)]="selectedTask.description">
+      </p>
+      <p>
+        <label>Completed</label>
+        <input type="checkbox" name="selectedTask.completed" [(ngModel)]="selectedTask.completed">
+      </p>
+    <button (click)="updateTask()">Submit</button>
+  </form>
+  </div>
+</div>
